@@ -178,6 +178,7 @@ int main(int argc, char** argv) {
     free(m);
     free(v);
     free(s);
+    free(h);
 
     return 0;
 }
