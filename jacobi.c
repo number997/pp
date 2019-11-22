@@ -6,10 +6,10 @@
 #include <math.h>
 
 void input_m(double *m, int dim) {
-    printf("Matrix input.\n");
+    printf("Matrix %dx%d.\n", dim, dim);
     for(int i = 0; i < dim; i++) {
         for(int j = 0; j < dim; j++) {
-            printf("Input element %d, %d: ", i, j);
+            printf("Matrix element %d, %d: ", i, j);
             scanf("%lf", (m+i*dim+j));
         }
     }
@@ -32,7 +32,7 @@ void print_v(double *v, int rows) {
     printf("\n");
 }
 
-bool is_diag_dominant(double *m, int dim, int threads) {
+bool is_str_diag_dominant(double *m, int dim, int threads) {
     bool is_diag = true;
     #pragma omp parallel for num_threads(threads) reduction(&&:is_diag)
     for(int i = 0; i < dim; i++) {
@@ -118,11 +118,11 @@ int main(int argc, char** argv) {
     //to prevent while loop to print string all the time it generates matrix
     bool info_printed = false;
 
-    //as long as matrix is null matrix or matrix is not diagonally dominant
-    while(is_null_matrix(m, dim, threads) || !is_diag_dominant(m, dim, threads)) {
+    //as long as matrix is null matrix or matrix is not strictly diagonally dominant
+    while(is_null_matrix(m, dim, threads) || !is_str_diag_dominant(m, dim, threads)) {
         if(random) {
             if(!info_printed) {
-                printf("Generating diagonally dominant matrix (system of linear equations).\n");
+                printf("Generating strictly diagonally dominant matrix (system of linear equations).\n");
             }
             info_printed = true;
             //generate matrix
@@ -138,7 +138,7 @@ int main(int argc, char** argv) {
             }
         }
         else {
-            printf("Input diagonally dominant matrix.");
+            printf("Input should be strictly diagonally dominant matrix. \n");
             input_m(m, dim);
         }
     }
