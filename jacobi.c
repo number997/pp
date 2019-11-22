@@ -42,7 +42,7 @@ bool is_diag_dominant(double *m, int dim, int threads) {
                 col+=abs(*(m+i*dim+j));
             }
         }
-        if(abs(*(m+i*dim+i)) < col) {
+        if(abs(*(m+i*dim+i)) <= col) {
             is_diag = is_diag && false;
         }
     }
