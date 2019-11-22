@@ -86,6 +86,10 @@ int main(int argc, char** argv) {
     }
 
     dim = strtol(argv[2], NULL, 10);
+    //dim%threads != 0 is here to make writing program easier, although i have not tried
+    //to write a protramm where this is not case my basic idea is following: each thread does number
+    //of steps calculated as: if(dim>threads) steps = floor(dim/threads), last thread does whatever is left
+    //(else) each thread works on one row
     if(dim <= 0 || dim%threads != 0) {
         printf("Wrong dimension.");
         return -1;
