@@ -158,7 +158,7 @@ int main(int argc, char** argv) {
         {
             int thread = omp_get_thread_num();
             for(i = thread*steps; i < thread*steps+steps; i++) {
-                double temp = 0;
+                double temp = 0.0;
                 for(j = 0; j < dim; j++) {
                     if(i != j) {
                         temp += *(m+i*dim+j)**(h+j);
